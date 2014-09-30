@@ -26,7 +26,7 @@
   #define INJECTv1 36  // reactor valve pin
   #define REACTORv1 35        // hydrogen valve pin
   #define PUMPpin1 26    // water pump pin
-  #define POWERpin 25    // water pump power pin
+//  #define POWERpin 25    // water pump power pin
   
   #define WATERv2 34     // water valve pin
   #define INJECTv2 33  // reactor valve pin

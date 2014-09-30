@@ -109,7 +109,7 @@ void piCommand(String input){
   if(input.indexOf("tests") >=0)//checks for on
   {
 //    Serial.println("supply");
-    alps[i].supplyOn=true;
+    alps[sysnum].supplyOn=true;
     digitalWrite(alps[sysnum].reactorVPin,HIGH);      // turn reactor valve on
   }
   

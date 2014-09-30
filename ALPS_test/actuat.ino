@@ -27,8 +27,7 @@
  * stops all actuators
  *----------------------------------------------------------------------------*/
  void stopActuators(struct ALPS *p){
-   alps[i].supplyOn=false;
-   digitalWrite(POWERpin,LOW);
+   p->supplyOn=false;
    digitalWrite(p->pumpPin,LOW);      // turn pump off
    digitalWrite(p->waterVPin,LOW);      // turn water valve off
    digitalWrite(p->injectorVPin,LOW);      // turn injector valve off
