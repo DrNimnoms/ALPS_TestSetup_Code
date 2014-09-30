@@ -37,7 +37,7 @@ void piCommand(String input){
     if(tempoTime>0){
       alps[sysnum].manualRTime=true;
       alps[sysnum].reactionTime=tempoTime;
-      Serial.println(tempoTime);
+//      Serial.println(tempoTime);
     }
   }
   
