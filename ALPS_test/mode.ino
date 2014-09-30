@@ -30,7 +30,7 @@
    p->waterNeeded=waterNeededMin;
    p->totalWater=0;
    p->totalH2=0;
-   p->waterPumped=0;
+   p->waterInjected=0;
    p->state=INITALIZING;
  }
  

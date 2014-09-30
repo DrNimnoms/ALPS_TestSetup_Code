@@ -39,8 +39,11 @@
 //   digitalWrite(POWERpin,HIGH);
    digitalWrite(p->pumpPin,HIGH);      // turn pump on
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
-   float pumpW=(*p).totalWater - (*p).waterPumped;
-   if ( pumpW >= p->waterNeeded){
+   float pumpW= p->totalWater - p->waterInjected;
+   int wNeedTempo=p->waterNeeded;
+   if(p->manualWater) wNeedTempo=p->manWaterpumped;
+   
+   if ( pumpW >= wNeedTempo){
      stopActuators(p);
      p->state=SUPPLYING;
      timeReset(p);
@@ -90,6 +93,7 @@
    if ( p->reactorPres >= p->waterPres){
      stopActuators(p);
      p->state=WAIT2;
+     p->waterInjected=p->totalWater;
      timeReset(p);
    }
  }
@@ -114,8 +118,11 @@
 //   p->pumpOn=true;
    
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
-   float pumpW=p->totalWater - p->waterPumped;
-   if ( pumpW >= p->waterNeeded || p->waterPres >= 750){
+   float pumpW=p->totalWater - p->waterInjected;
+   int wNeedTempo=p->waterNeeded;
+   if(p->manualWater) wNeedTempo=p->manWaterpumped;
+   
+   if ( pumpW >= wNeedTempo || p->waterPres >= 750){
 //     p->pumpOn=false;
      digitalWrite(p->pumpPin,LOW);
      p->pumpCount++;
@@ -127,7 +134,6 @@
    
    if(p->pumpCount>10){
      stopActuators(p);
-     p->waterPumped=p->totalWater;
      p->state=REACTING;
    }
    

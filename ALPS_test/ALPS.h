@@ -107,7 +107,7 @@
     float totalWater;
     float totalH2;
     boolean countH2;
-    float waterPumped;
+    float waterInjected;
     int waterNeeded;
     int cycle;
     unsigned long commTimeStamp;
@@ -118,6 +118,8 @@
     unsigned long timeKeepingStamp;
     boolean stream;
     boolean manualRTime;
+    boolean manualWater;
+    int manWaterpumped;
     int reactionTime;
   } ALPSsys;
   

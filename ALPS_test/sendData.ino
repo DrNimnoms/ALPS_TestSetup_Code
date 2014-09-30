@@ -52,7 +52,7 @@ void sendAlpsData(struct ALPS *p){
   Serial.print(',');
   Serial.print(p->h2mFlow);
   Serial.print(',');
-  Serial.print(p->totalWater,0);
+  Serial.print(p->waterInjected,0);
   Serial.print(',');
   Serial.println(p->totalH2);
 }

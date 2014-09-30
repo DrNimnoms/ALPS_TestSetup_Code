@@ -61,6 +61,7 @@ void Inital(void){
     alps[i].stream=false;  // sets the stream data to false 
     alps[i].countH2=false;
     alps[i].manualRTime=false;
+    alps[i].manualWater=false;
   }
 //  alps[0].cycle=13;
 //  alps[0].totalWater=1498;

@@ -29,11 +29,28 @@ void piCommand(String input){
   String stempo=input.substring(sval+1,sval+2);
   int sysnum=stempo.toInt();
   
+  if(input.indexOf("water") >=0)//checks for on
+  {
+    int swater=input.indexOf(" ");
+    String stempo2=input.substring(swater+1,sval);
+    int tempoWater=stempo2.toInt();
+    if(tempoWater>0){
+      alps[sysnum].manualWater=true;
+      alps[sysnum].reactionTime=tempoWater;
+      if(alps[sysnum].state=REACTING) alps[sysnum].state=PUMPING;
+    }
+  }
+  
+  if(input.indexOf("nowate") >=0)//checks for on
+  {
+    alps[sysnum].manualWater=false;
+  }
+  
   if(input.indexOf("time") >=0)//checks for on
   {
     int stime=input.indexOf(" ");
-    String stempo2=input.substring(stime+1,sval);
-    int tempoTime=stempo2.toInt();
+    String stempo3=input.substring(stime+1,sval);
+    int tempoTime=stempo3.toInt();
     if(tempoTime>0){
       alps[sysnum].manualRTime=true;
       alps[sysnum].reactionTime=tempoTime;
@@ -41,7 +58,7 @@ void piCommand(String input){
     }
   }
   
-  if(input.indexOf("notime") >=0)//checks for on
+  if(input.indexOf("notim") >=0)//checks for on
   {
     alps[sysnum].manualRTime=false;
   }
