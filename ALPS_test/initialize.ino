@@ -35,7 +35,11 @@ void Inital(void){
   alps[1].waterPPin=WATERp2;
   alps[1].waterFPin=WATERf2;
   alps[1].waterTPin=WATERt2;
-    
+  
+  // end condation
+  alps[0].h2expected=h2expectedR1;
+  alps[1].h2expected=h2expectedR2;
+  
   // setup digital I/Os
   for(i=0;i<ALPSnum;i++){
     relay_setup(alps[i].pumpPin);
@@ -56,6 +60,7 @@ void Inital(void){
     alps[i].mode=STOP; //set the system to stop mode
     alps[i].stream=false;  // sets the stream data to false 
     alps[i].countH2=false;
+    alps[i].manualRTime=false;
   }
 //  alps[0].cycle=13;
 //  alps[0].totalWater=1498;

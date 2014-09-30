@@ -29,6 +29,23 @@ void piCommand(String input){
   String stempo=input.substring(sval+1,sval+2);
   int sysnum=stempo.toInt();
   
+  if(input.indexOf("time") >=0)//checks for on
+  {
+    int stime=input.indexOf(" ");
+    String stempo2=input.substring(stime+1,sval);
+    int tempoTime=stempo2.toInt();
+    if(tempoTime>0){
+      alps[sysnum].manualRTime=true;
+      alps[sysnum].reactionTime=tempoTime;
+      Serial.println(tempoTime);
+    }
+  }
+  
+  if(input.indexOf("notime") >=0)//checks for on
+  {
+    alps[sysnum].manualRTime=false;
+  }
+  
   if(input.indexOf("stream") >=0)//checks for on
   {
     alps[sysnum].stream=true;
@@ -80,7 +97,7 @@ void piCommand(String input){
    if(input.indexOf("testp") >=0)//checks for on
   {
 //    Serial.println("pump");
-    digitalWrite(POWERpin,HIGH);      // turn pump on
+//    digitalWrite(POWERpin,HIGH);      // turn pump on
     digitalWrite(alps[sysnum].pumpPin,HIGH);      // turn pump on
     digitalWrite(alps[sysnum].waterVPin,HIGH);      // turn water valve on
   }
@@ -92,6 +109,7 @@ void piCommand(String input){
   if(input.indexOf("tests") >=0)//checks for on
   {
 //    Serial.println("supply");
+    alps[i].supplyOn=true;
     digitalWrite(alps[sysnum].reactorVPin,HIGH);      // turn reactor valve on
   }
   

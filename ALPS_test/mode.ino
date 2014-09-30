@@ -4,7 +4,19 @@
  *----------------------------------------------------------------------------*/
   void checkMode(){
     for(int i=0;i<ALPSnum;i++){
-      if(alps[i].totalH2 >= h2expected) stopMode(&alps[i]);
+      
+       if(!alps[i].supplyOn){
+         if (alps[i].reactorPres >= maxPres + 5){
+           alps[i].countH2=true;
+           digitalWrite(alps[i].reactorVPin,HIGH);      // turn reactor valve on   
+         }
+         else if(alps[i].reactorPres <= maxPres - 5){
+           alps[i].countH2=false;
+           digitalWrite(alps[i].reactorVPin,LOW);
+         }
+       }
+      
+      if(alps[i].totalH2 >= alps[i].h2expected) stopMode(&alps[i]);
       if(alps[i].mode==RUN) checkState(&alps[i]);
     }
   }

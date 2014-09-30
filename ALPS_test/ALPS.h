@@ -6,8 +6,9 @@
  *----------------------------------------------------------------------------*/
 
 // ALPS parameters
-  #define ALPSnum 1       // number of reactors
-  #define h2expected 750  // 95% of the expected hydrogen production
+  #define ALPSnum 2       // number of reactors
+  #define h2expectedR1 750  // 95% of the expected hydrogen production
+  #define h2expectedR2 855  // 95% of the expected hydrogen production
   #define minPres 300      // minimum reactor pressure in PSI
   #define maxPres 1000    // maximum reactor pressure in PSI
   #define reactinTime1 120  // reaction time in minutes
@@ -16,7 +17,9 @@
   #define waterNeededMin 25 // water added per reaction in ml
   #define waterNeededMax 55 // water added per reaction in ml
   #define waterNeededRate 10 // water added per reaction in ml
-  #define reactionRTime 60000//time between sending data while in REACTION state
+  #define reactionRTime 60000//time (microsec) between sending data while in REACTION state
+  #define wait1Time 2        // wait time (minutes) between supplying and injection 
+  #define wait2Time 2        // wait time (minutes) between injection and pumping
 
 // actuator pins
   #define WATERv1 37     // water valve pin
@@ -65,9 +68,11 @@
 
 // ALPS system variables
   enum sysMode {STOP, RUN};
-  enum sysState {INITALIZING, SUPPLYING, INJECTING, PUMPING, REACTING};
+  enum sysState {INITALIZING, SUPPLYING, WAIT1, INJECTING, WAIT2, PUMPING, REACTING};
   
   typedef struct ALPS {
+    // end condation
+    int h2expected;
     // actuator pins
     int pumpPin;
     int waterVPin;
@@ -112,6 +117,8 @@
     unsigned long microseconds;
     unsigned long timeKeepingStamp;
     boolean stream;
+    boolean manualRTime;
+    int reactionTime;
   } ALPSsys;
   
   ALPSsys alps[2];

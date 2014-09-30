@@ -3,6 +3,7 @@
  * resets the APLS system
  *----------------------------------------------------------------------------*/
   void checkState(struct ALPS *p){
+    
     switch (p->state) {
       case INITALIZING:
         initialize(p);
@@ -10,8 +11,14 @@
       case SUPPLYING:
         supply(p);
         break;
+      case WAIT1:
+        wait1(p);
+        break;
       case INJECTING:
         inject(p);
+        break;
+      case WAIT2:
+        wait2(p);
         break;
       case PUMPING:
         pump(p);
@@ -29,7 +36,7 @@
  * initializes the reaction 
  *----------------------------------------------------------------------------*/
  void initialize(struct ALPS *p){
-   digitalWrite(POWERpin,HIGH);
+//   digitalWrite(POWERpin,HIGH);
    digitalWrite(p->pumpPin,HIGH);      // turn pump on
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
    float pumpW=(*p).totalWater - (*p).waterPumped;
@@ -41,18 +48,19 @@
  }
  
   /*------------------------------------------------------------------------------
- * void supply(struct ALPS *p, int h2vpin)
+ * void supply(struct ALPS *p)
  * initializes the reaction 
  *----------------------------------------------------------------------------*/
  void supply(struct ALPS *p){
 
    p->countH2=true;
+   p->supplyOn=true;
    digitalWrite(p->reactorVPin,HIGH);      // turn reactor valve on   
    
    if ( p->reactorPres <= minPres){
      stopActuators(p);
      p->countH2=false;
-     p->state=INJECTING;
+     p->state=WAIT1;
      p->cycle++;
      p->waterNeeded += waterNeededRate;
      p->waterNeeded=min(p->waterNeeded,waterNeededMax);
@@ -61,7 +69,18 @@
  }
  
   /*------------------------------------------------------------------------------
- * void inject(struct ALPS *p, int watervpin)
+ * void wait1(struct ALPS *p)
+ * wait time between supply and injection
+ *----------------------------------------------------------------------------*/
+ void wait1(struct ALPS *p){
+   stopActuators(p);
+   if ( p->minutes >= wait1Time){
+     p->state=INJECTING;
+   }
+ }
+ 
+  /*------------------------------------------------------------------------------
+ * void inject(struct ALPS *p)
  * initializes the reaction 
  *----------------------------------------------------------------------------*/
  void inject(struct ALPS *p){
@@ -70,20 +89,30 @@
    
    if ( p->reactorPres >= p->waterPres){
      stopActuators(p);
-     p->state=PUMPING;
+     p->state=WAIT2;
      timeReset(p);
    }
  }
  
+  /*------------------------------------------------------------------------------
+ * void wait2(struct ALPS *p)
+ * wait time between injection and pump
+ *----------------------------------------------------------------------------*/
+ void wait2(struct ALPS *p){
+   stopActuators(p);
+   if ( p->minutes >= wait2Time){
+     p->state=PUMPING;
+   }
+ }
  
  /*------------------------------------------------------------------------------
- * void pump(struct ALPS *p, int pumpPin, int h2vpin)
+ * void pump(struct ALPS *p)
  * initializes the reaction 
  *----------------------------------------------------------------------------*/
  void pump(struct ALPS *p){
    
 //   p->pumpOn=true;
-   digitalWrite(p->pumpPin,HIGH);      // turn pump on
+   
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
    float pumpW=p->totalWater - p->waterPumped;
    if ( pumpW >= p->waterNeeded || p->waterPres >= 750){
@@ -91,7 +120,11 @@
      digitalWrite(p->pumpPin,LOW);
      p->pumpCount++;
    }
-   else p->pumpCount = 0;
+   else {
+     digitalWrite(p->pumpPin,HIGH);      // turn pump on
+     p->pumpCount = 0;
+   }
+   
    if(p->pumpCount>10){
      stopActuators(p);
      p->waterPumped=p->totalWater;
@@ -109,15 +142,7 @@
    int rTime = reactinTime3;
    if (p->cycle <= 12) rTime = reactinTime2;
    if (p->cycle <= 6) rTime = reactinTime1;
-   
-   if (p->reactorPres >= maxPres + 5){
-     p->countH2=true;
-     digitalWrite(p->reactorVPin,HIGH);      // turn reactor valve on   
-   }
-   else if(p->reactorPres <= maxPres - 5){
-     p->countH2=false;
-     digitalWrite(p->reactorVPin,LOW);
-   }
+   if (p->manualRTime) rTime = p->reactionTime;
    
    if ( p->minutes >= rTime){
      p->state=SUPPLYING;
