@@ -121,5 +121,5 @@
     int reactionTime;
   } ALPSsys;
   
-  ALPSsys alps[2];
+  ALPSsys alps[ALPSnum];
 
