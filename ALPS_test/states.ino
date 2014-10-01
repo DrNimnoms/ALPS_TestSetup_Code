@@ -132,7 +132,7 @@
      p->pumpCount = 0;
    }
    
-   if(p->pumpCount>10){
+   if(p->pumpCount>8){
      stopActuators(p);
      p->state=REACTING;
    }

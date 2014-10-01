@@ -14,7 +14,7 @@
 
 void setup() {
   Inital();
-  Serial.println("\t\t  ALPS system test\n");
+  Serial.println("\n\t\t  ALPS system test\n");
 }
 
 void loop() {

@@ -30,19 +30,19 @@
   
   #define WATERv2 34     // water valve pin
   #define INJECTv2 33  // reactor valve pin
-  #define REACTORv2 32        // hydrogen valve pin
+  #define REACTORv2 32   // hydrogen valve pin
   #define PUMPpin2 25    // water pump pin
 
 // Sensor pins
   #define REACTORt1 A11  // reactor temperature sensor pin
-  #define REACTORp1 A2   // reactor pressure sensor pin
-  #define WATERp1 A1      // water pressure sensor pin
+  #define REACTORp1 A1   // reactor pressure sensor pin
+  #define WATERp1 A0      // water pressure sensor pin
   #define WATERf1 A9      // water flow sensor pin
   #define WATERt1 A12      // water flow sensor pin
   
   #define REACTORt2 A13  // reactor temperature sensor pin
-  #define REACTORp2 A4   // reactor pressure sensor pin
-  #define WATERp2 A3      // water pressure sensor pin
+  #define REACTORp2 A3   // reactor pressure sensor pin
+  #define WATERp2 A2      // water pressure sensor pin
   #define WATERf2 A9     // water flow sensor pin
   #define WATERt2 A14      // water flow sensor pin
 
@@ -61,7 +61,7 @@
   boolean uartPrint=false;    // print for debugging
 
 // loop timing variables
-  const long controlTime=100000;          // loop time in uSec  .2 s loops ==> 5Hz
+  const long controlTime=150000;          // loop time in uSec  .2 s loops ==> 5Hz
   const float dt=controlTime/1000000.0;   // control time in sec
   const float dtm=controlTime/1000000.0/60.0;   // control time in sec times minute
   unsigned long timeStamp=0;              // used to keep track of the loop time

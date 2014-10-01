@@ -21,7 +21,8 @@
    
     stateTime(&alps[0]);
   }
-  h2_gdata(&alps[0]);
+  h2_gdata1(&alps[0]);
+  h2_gdata2(&alps[1]);
   for(i=0;i<ALPSnum;i++){
    if(alps[i].countH2) //alps[i].state==SUPPLYING
    { 
