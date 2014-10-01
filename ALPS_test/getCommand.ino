@@ -159,9 +159,9 @@ void printOut(struct ALPS *p){
   Serial.print("water pres: ");
   Serial.print(p->waterPres,0);
   Serial.print(" PSIG \t");
-  Serial.print("water temp: ");
-  Serial.print(p->waterTemp);
-  Serial.print(" C \t");
+//  Serial.print("water temp: ");
+//  Serial.print(p->waterTemp);
+//  Serial.print(" C \t");
   Serial.print("water flow: ");
   Serial.print(p->waterFlow);
   Serial.println(" mL/min");

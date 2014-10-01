@@ -3,9 +3,12 @@
  * checks APLS systems mode
  *----------------------------------------------------------------------------*/
   void checkMode(){
+    if(alps[0].state==PUMPING || alps[1].state==PUMPING) digitalWrite(POWERpin,HIGH);
+    else digitalWrite(POWERpin,LOW);
+    
     for(int i=0;i<ALPSnum;i++){
       
-       if(!alps[i].supplyOn){
+      if(!alps[i].supplyOn){
          if (alps[i].reactorPres >= maxPres + 5){
            alps[i].countH2=true;
            digitalWrite(alps[i].reactorVPin,HIGH);      // turn reactor valve on   
@@ -14,7 +17,7 @@
            alps[i].countH2=false;
            digitalWrite(alps[i].reactorVPin,LOW);
          }
-       }
+      }
       
       if(alps[i].totalH2 >= alps[i].h2expected) stopMode(&alps[i]);
       if(alps[i].mode==RUN) checkState(&alps[i]);

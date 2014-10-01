@@ -22,11 +22,12 @@
   #define wait2Time 2        // wait time (minutes) between injection and pumping
 
 // actuator pins
+  #define POWERpin 29    // water pump power pin
+
   #define WATERv1 37     // water valve pin
   #define INJECTv1 36  // reactor valve pin
   #define REACTORv1 35        // hydrogen valve pin
   #define PUMPpin1 26    // water pump pin
-//  #define POWERpin 25    // water pump power pin
   
   #define WATERv2 34     // water valve pin
   #define INJECTv2 33  // reactor valve pin
@@ -36,11 +37,11 @@
 // Sensor pins
   #define REACTORt1 A11  // reactor temperature sensor pin
   #define REACTORp1 A1   // reactor pressure sensor pin
-  #define WATERp1 A0      // water pressure sensor pin
+  #define WATERp1 A4      // water pressure sensor pin
   #define WATERf1 A9      // water flow sensor pin
-  #define WATERt1 A12      // water flow sensor pin
+  #define WATERt1 A13      // water flow sensor pin
   
-  #define REACTORt2 A13  // reactor temperature sensor pin
+  #define REACTORt2 A12  // reactor temperature sensor pin
   #define REACTORp2 A3   // reactor pressure sensor pin
   #define WATERp2 A2      // water pressure sensor pin
   #define WATERf2 A9     // water flow sensor pin
@@ -69,7 +70,7 @@
 // ALPS system variables
   enum sysMode {STOP, RUN};
   enum sysState {INITALIZING, SUPPLYING, WAIT1, INJECTING, WAIT2, PUMPING, REACTING};
-  
+  boolean pumpPower=false;
   typedef struct ALPS {
     // end condation
     int h2expected;

@@ -13,13 +13,13 @@
     alps[i].reactorTemp=avgADC(alps[i].reactorTPin,1)*tempConst;  // get reactor temperature
     alps[i].waterPres=avgADC(alps[i].waterPPin,2)*presConst;      // get water pressure
     alps[i].waterFlow=avgADC(alps[i].waterFPin,2)*waterFlowConst; // get water flow
-    alps[i].waterTemp=avgADC(alps[i].waterTPin,1)*tempConst;      // get water temperature
+//    alps[i].waterTemp=avgADC(alps[i].waterTPin,1)*tempConst;      // get water temperature
     
     alps[i].reactorDPres = rateCal(alps[i].reactorPres,alps[i].reactorLPres);  // calculate reactor pressure rate 
 //    if(alps[i].state==INITALIZING || alps[i].state==PUMPING) 
     alps[i].totalWater += alps[i].waterFlow*dtm;         //calculate totalwater pumped
    
-    stateTime(&alps[0]);
+    stateTime(&alps[i]);
   }
   h2_gdata1(&alps[0]);
   h2_gdata2(&alps[1]);

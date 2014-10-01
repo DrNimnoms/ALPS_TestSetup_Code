@@ -116,7 +116,7 @@
  void pump(struct ALPS *p){
    
 //   p->pumpOn=true;
-   
+   digitalWrite(POWERpin,HIGH);
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
    float pumpW=p->totalWater - p->waterInjected;
    int wNeedTempo=p->waterNeeded;

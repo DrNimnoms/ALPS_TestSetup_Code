@@ -44,8 +44,8 @@ void sendAlpsData(struct ALPS *p){
   Serial.print(',');
   Serial.print(p->reactorTemp,0);
   Serial.print(',');
-  Serial.print(p->waterTemp,0);
-  Serial.print(',');
+//  Serial.print(p->waterTemp,0);
+//  Serial.print(',');
   Serial.print(p->h2temp,0);
   Serial.print(',');
   Serial.print(p->h2pres);
