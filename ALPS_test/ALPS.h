@@ -18,8 +18,8 @@
   #define waterNeededMax 55 // water added per reaction in ml
   #define waterNeededRate 10 // water added per reaction in ml
   #define reactionRTime 60000//time (microsec) between sending data while in REACTION state
-  #define wait1Time 2        // wait time (minutes) between supplying and injection 
-  #define wait2Time 2        // wait time (minutes) between injection and pumping
+  #define wait1Time 1        // wait time (minutes) between supplying and injection 
+  #define wait2Time 1        // wait time (minutes) between injection and pumping
 
 // actuator pins
   #define POWERpin 29    // water pump power pin
@@ -38,13 +38,13 @@
   #define REACTORt1 A11  // reactor temperature sensor pin
   #define REACTORp1 A1   // reactor pressure sensor pin
   #define WATERp1 A4      // water pressure sensor pin
-  #define WATERf1 A9      // water flow sensor pin
+  #define WATERf1 A5      // water flow sensor pin
   #define WATERt1 A13      // water flow sensor pin
   
   #define REACTORt2 A12  // reactor temperature sensor pin
   #define REACTORp2 A3   // reactor pressure sensor pin
   #define WATERp2 A2      // water pressure sensor pin
-  #define WATERf2 A9     // water flow sensor pin
+  #define WATERf2 A6     // water flow sensor pin
   #define WATERt2 A14      // water flow sensor pin
 
 // ADC conversion constants
@@ -66,6 +66,7 @@
   const float dt=controlTime/1000000.0;   // control time in sec
   const float dtm=controlTime/1000000.0/60.0;   // control time in sec times minute
   unsigned long timeStamp=0;              // used to keep track of the loop time
+  const int twoMinuteCount=(2*60*1000000)/controlTime;
 
 // ALPS system variables
   enum sysMode {STOP, RUN};

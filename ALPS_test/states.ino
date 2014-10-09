@@ -36,17 +36,25 @@
  * initializes the reaction 
  *----------------------------------------------------------------------------*/
  void initialize(struct ALPS *p){
-//   digitalWrite(POWERpin,HIGH);
-   digitalWrite(p->pumpPin,HIGH);      // turn pump on
+   digitalWrite(POWERpin,HIGH);
    digitalWrite(p->waterVPin,HIGH);      // turn water valve on
    float pumpW= p->totalWater - p->waterInjected;
    int wNeedTempo=p->waterNeeded;
    if(p->manualWater) wNeedTempo=p->manWaterpumped;
    
-   if ( pumpW >= wNeedTempo){
+   if ( pumpW >= wNeedTempo || p->waterPres >= 750){
+//     p->pumpOn=false;
+     digitalWrite(p->pumpPin,LOW);
+     p->pumpCount++;
+   }
+   else {
+     digitalWrite(p->pumpPin,HIGH);      // turn pump on
+     p->pumpCount = 0;
+   }
+   
+   if(p->pumpCount>15){
      stopActuators(p);
      p->state=SUPPLYING;
-     timeReset(p);
    }
  }
  
@@ -132,7 +140,7 @@
      p->pumpCount = 0;
    }
    
-   if(p->pumpCount>8){
+   if(p->pumpCount>15){
      stopActuators(p);
      p->state=REACTING;
    }

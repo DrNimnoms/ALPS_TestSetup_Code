@@ -3,7 +3,10 @@
  * checks APLS systems mode
  *----------------------------------------------------------------------------*/
   void checkMode(){
-    if(alps[0].state==PUMPING || alps[1].state==PUMPING) digitalWrite(POWERpin,HIGH);
+    if(alps[0].mode==RUN || alps[1].mode==RUN){
+      if(alps[0].state==PUMPING || alps[1].state==PUMPING || alps[0].state==INITALIZING || alps[1].state==INITALIZING) digitalWrite(POWERpin,HIGH);
+      else digitalWrite(POWERpin,LOW);
+    }
     else digitalWrite(POWERpin,LOW);
     
     for(int i=0;i<ALPSnum;i++){

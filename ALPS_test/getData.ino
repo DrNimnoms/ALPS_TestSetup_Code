@@ -4,7 +4,8 @@
  *-----------------------------------------------------------------------------*/
  void measNcal(void){
   int i=0;
-  static unsigned long waitTimeStamp[ALPSnum]={0};
+  static int waitTimeCounter[ALPSnum]={0};
+  static float h2FlowOffset[ALPSnum]={0};
   h2_rdata();    // start hydrogen pulling
   for(i=0;i<ALPSnum;i++)
   {
@@ -13,12 +14,13 @@
     alps[i].reactorTemp=avgADC(alps[i].reactorTPin,1)*tempConst;  // get reactor temperature
     alps[i].waterPres=avgADC(alps[i].waterPPin,2)*presConst;      // get water pressure
     alps[i].waterFlow=avgADC(alps[i].waterFPin,2)*waterFlowConst; // get water flow
+    
 //    alps[i].waterTemp=avgADC(alps[i].waterTPin,1)*tempConst;      // get water temperature
     
     alps[i].reactorDPres = rateCal(alps[i].reactorPres,alps[i].reactorLPres);  // calculate reactor pressure rate 
 //    if(alps[i].state==INITALIZING || alps[i].state==PUMPING) 
     alps[i].totalWater += alps[i].waterFlow*dtm;         //calculate totalwater pumped
-   
+//    if(alps[i].waterFlow>0) Serial.println(alps[i].totalWater);
     stateTime(&alps[i]);
   }
   h2_gdata1(&alps[0]);
@@ -26,10 +28,13 @@
   for(i=0;i<ALPSnum;i++){
    if(alps[i].countH2) //alps[i].state==SUPPLYING
    { 
-     waitTimeStamp[i]=micros();
-     alps[i].totalH2 += alps[i].h2mFlow*dtm;
+     waitTimeCounter[i]=0;
    }
-   else if(!areWeThereYet(waitTimeStamp[i],TWOMINUTE)) alps[i].totalH2 += alps[i].h2mFlow*dtm;
+   if(waitTimeCounter[i] <= twoMinuteCount){
+     alps[i].totalH2 += max(alps[i].h2mFlow-h2FlowOffset[i],0)*dtm;
+     waitTimeCounter[i]++;
+   }
+   else h2FlowOffset[i]=0.95*h2FlowOffset[i]+0.05*alps[i].h2mFlow;
   }
   
  }

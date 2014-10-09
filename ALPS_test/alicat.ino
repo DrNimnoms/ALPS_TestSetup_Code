@@ -34,6 +34,7 @@
     String tempo1="";
     String tempo2="";
     float data[4]={0};
+    boolean nsign=false;
     if (Serial1.available()) {
       while (!done) {
         char inByte = (char)Serial1.read();
@@ -44,11 +45,17 @@
   //    Serial.println(aliData);
       eVal=aliData.indexOf("H2");
       for(int i=0;i<4;i++){
+        nsign=false;
         sVal=aliData.indexOf("+");
+        if(sVal<0){
+          sVal=aliData.indexOf("-");
+          nsign=true;
+        }
         aliData=aliData.substring(sVal+1,eVal-1);
         tempo1=aliData.substring(0,3);
         tempo2=aliData.substring(4,6);
         data[i]=tempo1.toInt()+tempo2.toInt()/100.0;
+        if(nsign)data[i]=-data[i];
       }
       p->h2pres = data[0];
       p->h2temp = data[1];
@@ -70,6 +77,7 @@
     String tempo1="";
     String tempo2="";
     float data[4]={0};
+    boolean nsign=false;
     if (Serial2.available()) {
       while (!done) {
         char inByte = (char)Serial2.read();
@@ -77,18 +85,39 @@
         if (aliData.indexOf("H2")>=0) done=true;
         else delay(1);
       }
-  //    Serial.println(aliData);
+//      Serial.println(aliData);
       eVal=aliData.indexOf("H2");
-      for(int i=0;i<4;i++){
+      for(int i=0;i<2;i++){
+        nsign=false;
         sVal=aliData.indexOf("+");
+        if(sVal<0){
+          sVal=aliData.indexOf("-");
+          nsign=true;
+        }
         aliData=aliData.substring(sVal+1,eVal-1);
         tempo1=aliData.substring(0,3);
         tempo2=aliData.substring(4,6);
         data[i]=tempo1.toInt()+tempo2.toInt()/100.0;
+        if(nsign)data[i]=-data[i];
+      }
+      
+      for(int i=2;i<4;i++){
+        nsign=false;
+        sVal=aliData.indexOf("+");
+        if(sVal<0){
+          sVal=aliData.indexOf("-");
+          nsign=true;
+        }
+        aliData=aliData.substring(sVal+1,eVal-1);
+        tempo1=aliData.substring(0,4);
+        tempo2=aliData.substring(5,6);
+        data[i]=tempo1.toInt()+tempo2.toInt()/10.0;
+        if(nsign)data[i]=-data[i];
       }
       p->h2pres = data[0];
       p->h2temp = data[1];
       p->h2vFlow = data[2];
       p->h2mFlow = data[3];
+//      Serial.println(p->h2mFlow);
     }
   }

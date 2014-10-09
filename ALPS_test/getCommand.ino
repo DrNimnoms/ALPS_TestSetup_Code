@@ -127,12 +127,14 @@ void piCommand(String input){
   {
 //    Serial.println("supply");
     alps[sysnum].supplyOn=true;
+    alps[sysnum].countH2=true;
     digitalWrite(alps[sysnum].reactorVPin,HIGH);      // turn reactor valve on
   }
   
   if(input.indexOf("off") >=0)//checks for on
   {
 //    Serial.println("All OFF");
+    alps[sysnum].countH2=false;
     stopActuators(&alps[sysnum]);
   }
   
@@ -167,7 +169,7 @@ void printOut(struct ALPS *p){
   Serial.println(" mL/min");
   Serial.print("H_2 pres: ");
   Serial.print(p->h2pres);
-  Serial.print(" PSIG \t");
+  Serial.print(" PSIA \t");
   Serial.print("H_2 temp: ");
   Serial.print(p->h2temp);
   Serial.print(" C \t");

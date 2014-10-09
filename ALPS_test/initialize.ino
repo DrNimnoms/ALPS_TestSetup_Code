@@ -41,6 +41,7 @@ void Inital(void){
   alps[1].h2expected=h2expectedR2;
   
   // setup digital I/Os
+  relay_setup(POWERpin);
   for(i=0;i<ALPSnum;i++){
     relay_setup(alps[i].pumpPin);
     relay_setup(alps[i].waterVPin);
@@ -63,13 +64,13 @@ void Inital(void){
     alps[i].manualRTime=false;
     alps[i].manualWater=false;
   }
-//  alps[0].cycle=13;
-//  alps[0].totalWater=1498;
+//  alps[0].cycle=1;
+//  alps[0].totalWater=25;
 //  alps[0].totalH2=434.43;
-//  alps[0].waterPumped=alps[0].totalWater;
-//  alps[0].waterNeeded=waterNeededMax;
+//  alps[0].waterInjected=alps[0].totalWater;
+//  alps[0].waterNeeded=45;
 //  alps[0].state=SUPPLYING;
-  delay(500);
+  delay(300);
 }
 
 
