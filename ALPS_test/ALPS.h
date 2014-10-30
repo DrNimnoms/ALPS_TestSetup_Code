@@ -7,13 +7,13 @@
 
 // ALPS parameters
   #define ALPSnum 2       // number of reactors
-  #define h2expectedR1 750  // 95% of the expected hydrogen production
-  #define h2expectedR2 750  // 95% of the expected hydrogen production
+  #define h2expectedR1 900  // 95% of the expected hydrogen production
+  #define h2expectedR2 900  // 95% of the expected hydrogen production
   #define minPres 300      // minimum reactor pressure in PSI
   #define maxPres 1000    // maximum reactor pressure in PSI
   #define reactinTime1 120  // reaction time in minutes
-  #define reactinTime2 240  // reaction time in minutes
-  #define reactinTime3 420  // reaction time in minutes
+  #define reactinTime2 360  // reaction time in minutes
+  #define reactinTime3 720  // reaction time in minutes
   #define waterNeededMin 25 // water added per reaction in ml
   #define waterNeededMax 100 // water added per reaction in ml
   #define waterNeededRate 25 // water added per reaction in ml
