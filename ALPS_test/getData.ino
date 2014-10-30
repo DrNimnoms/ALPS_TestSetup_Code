@@ -7,13 +7,15 @@
   static int waitTimeCounter[ALPSnum]={0};
   static float h2FlowOffset[ALPSnum]={0};
   h2_rdata();    // start hydrogen pulling
+  alps[0].waterFlow=avgADC(alps[0].waterFPin,2)*waterFlowConst1; // get water flow
+  alps[1].waterFlow=avgADC(alps[1].waterFPin,2)*waterFlowConst2; // get water flow
   for(i=0;i<ALPSnum;i++)
   {
     alps[i].reactorLPres=alps[i].reactorPres;    
     alps[i].reactorPres=avgADC(alps[i].reactorPPin,2)*presConst;  // get reactor pressure
     alps[i].reactorTemp=avgADC(alps[i].reactorTPin,1)*tempConst;  // get reactor temperature
     alps[i].waterPres=avgADC(alps[i].waterPPin,2)*presConst;      // get water pressure
-    alps[i].waterFlow=avgADC(alps[i].waterFPin,2)*waterFlowConst; // get water flow
+//    alps[i].waterFlow=avgADC(alps[i].waterFPin,2)*waterFlowConst; // get water flow
     
 //    alps[i].waterTemp=avgADC(alps[i].waterTPin,1)*tempConst;      // get water temperature
     

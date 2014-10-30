@@ -84,7 +84,6 @@
  * wait time between supply and injection
  *----------------------------------------------------------------------------*/
  void wait1(struct ALPS *p){
-   stopActuators(p);
    if ( p->minutes >= wait1Time){
      p->state=INJECTING;
    }
@@ -111,7 +110,6 @@
  * wait time between injection and pump
  *----------------------------------------------------------------------------*/
  void wait2(struct ALPS *p){
-   stopActuators(p);
    if ( p->minutes >= wait2Time){
      p->state=PUMPING;
    }

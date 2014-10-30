@@ -65,11 +65,11 @@ void Inital(void){
     alps[i].manualWater=false;
   }
 //  alps[0].cycle=1;
-//  alps[0].totalWater=25;
-//  alps[0].totalH2=434.43;
+//  alps[1].totalWater=60;
+//  alps[1].totalH2=50;
 //  alps[0].waterInjected=alps[0].totalWater;
-//  alps[0].waterNeeded=45;
-//  alps[0].state=SUPPLYING;
+//  alps[1].waterNeeded=50;
+//  alps[1].state=SUPPLYING;
   delay(300);
 }
 

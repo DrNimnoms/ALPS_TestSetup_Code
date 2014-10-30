@@ -8,15 +8,15 @@
 // ALPS parameters
   #define ALPSnum 2       // number of reactors
   #define h2expectedR1 750  // 95% of the expected hydrogen production
-  #define h2expectedR2 855  // 95% of the expected hydrogen production
+  #define h2expectedR2 750  // 95% of the expected hydrogen production
   #define minPres 300      // minimum reactor pressure in PSI
   #define maxPres 1000    // maximum reactor pressure in PSI
   #define reactinTime1 120  // reaction time in minutes
   #define reactinTime2 240  // reaction time in minutes
   #define reactinTime3 420  // reaction time in minutes
   #define waterNeededMin 25 // water added per reaction in ml
-  #define waterNeededMax 55 // water added per reaction in ml
-  #define waterNeededRate 10 // water added per reaction in ml
+  #define waterNeededMax 100 // water added per reaction in ml
+  #define waterNeededRate 25 // water added per reaction in ml
   #define reactionRTime 60000//time (microsec) between sending data while in REACTION state
   #define wait1Time 1        // wait time (minutes) between supplying and injection 
   #define wait2Time 1        // wait time (minutes) between injection and pumping
@@ -49,7 +49,8 @@
 
 // ADC conversion constants
   #define presConst  1.955       // convert adc value to PSIG ==> press= adc *(2000 psig/1023)
-  #define waterFlowConst 0.48876 // convert adc value to ml/min ==> flow= adc *(500 ml/min/1023)
+  #define waterFlowConst1 0.1955 // convert adc value to ml/min ==> flow= adc *(200 ml/min/1023)
+  #define waterFlowConst2 0.48876 // convert adc value to ml/min ==> flow= adc *(500 ml/min/1023)
   #define tempConst 0.48876      // convert adc value to C ==> temp= adc *(500 C/1023)
 
 //time
