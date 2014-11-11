@@ -14,7 +14,7 @@
   #define reactinTime1 120  // reaction time in minutes
   #define reactinTime2 360  // reaction time in minutes
   #define reactinTime3 720  // reaction time in minutes
-  #define waterNeededMin 25 // water added per reaction in ml
+  #define waterNeededMin 50 // water added per reaction in ml
   #define waterNeededMax 100 // water added per reaction in ml
   #define waterNeededRate 25 // water added per reaction in ml
   #define reactionRTime 60000//time (microsec) between sending data while in REACTION state
@@ -49,8 +49,8 @@
 
 // ADC conversion constants
   #define presConst  1.955       // convert adc value to PSIG ==> press= adc *(2000 psig/1023)
-  #define waterFlowConst1 0.1955 // convert adc value to ml/min ==> flow= adc *(200 ml/min/1023)
-  #define waterFlowConst2 0.48876 // convert adc value to ml/min ==> flow= adc *(500 ml/min/1023)
+  #define waterFlowConst1 0.1466276 // convert adc value to ml/min ==> flow= adc *(200 ml/min/1023)*f_factor(0.75)
+  #define waterFlowConst2 0.293255 // convert adc value to ml/min ==> flow= adc *(500 ml/min/1023)*f_factor(0.6)
   #define tempConst 0.48876      // convert adc value to C ==> temp= adc *(500 C/1023)
 
 //time

@@ -36,8 +36,8 @@ void piCommand(String input){
     int tempoWater=stempo2.toInt();
     if(tempoWater>0){
       alps[sysnum].manualWater=true;
-      alps[sysnum].reactionTime=tempoWater;
-      if(alps[sysnum].state=REACTING) alps[sysnum].state=PUMPING;
+      alps[sysnum].manWaterpumped=tempoWater;
+      if(alps[sysnum].state==REACTING) alps[sysnum].state=PUMPING;
     }
   }
   
